@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Insta_Challenge" customModuleProvider="target" sceneMemberID="viewController">
@@ -24,21 +24,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTW-lq-isv">
-                                            <rect key="frame" x="164" y="595" width="46" height="30"/>
-                                            <state key="normal" title="Load"/>
-                                            <connections>
-                                                <action selector="loadPictures:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Lk-c2-t5q"/>
-                                            </connections>
-                                        </button>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kMA-aT-ZGH" customClass="RoundedBlurEffectView" customModule="Insta_Challenge" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="109" width="375" height="450"/>
+                                            <rect key="frame" x="0.0" y="26" width="375" height="551"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="p1o-ug-yvh">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rg6-5A-qpc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <collectionViewLayout key="collectionViewLayout" id="Rrf-WA-WrU" customClass="InstaLayout" customModule="Insta_Challenge" customModuleProvider="target"/>
                                                         <cells>
@@ -85,7 +78,7 @@
                                             </view>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="375" id="67c-Xx-ngl"/>
-                                                <constraint firstAttribute="height" constant="450" id="Sjz-jv-rhz"/>
+                                                <constraint firstAttribute="height" constant="551" id="Sjz-jv-rhz"/>
                                             </constraints>
                                             <blurEffect style="dark"/>
                                             <userDefinedRuntimeAttributes>
@@ -94,10 +87,17 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </visualEffectView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTW-lq-isv">
+                                            <rect key="frame" x="164" y="605" width="46" height="30"/>
+                                            <state key="normal" title="Load"/>
+                                            <connections>
+                                                <action selector="loadPictures:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Lk-c2-t5q"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="kMA-aT-ZGH" firstAttribute="centerX" secondItem="nK4-J9-ff6" secondAttribute="centerX" id="rjj-TD-5Ri"/>
-                                        <constraint firstItem="kMA-aT-ZGH" firstAttribute="centerY" secondItem="nK4-J9-ff6" secondAttribute="centerY" id="wDi-pe-kYz"/>
+                                        <constraint firstItem="kMA-aT-ZGH" firstAttribute="centerY" secondItem="nK4-J9-ff6" secondAttribute="centerY" constant="-32" id="wDi-pe-kYz"/>
                                     </constraints>
                                 </view>
                                 <constraints>
@@ -123,7 +123,7 @@
                             <constraint firstItem="RJw-ej-JQ6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yqL-RQ-tQT"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="GYE-jz-8Oz"/>
+                    <navigationItem key="navigationItem" title="Home" id="GYE-jz-8Oz"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="backgroundBlurEffectView" destination="RJw-ej-JQ6" id="Uhx-fh-vjA"/>
@@ -148,7 +148,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BXH-hM-cIw">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sky-telescope" translatesAutoresizingMaskIntoConstraints="NO" id="BXH-hM-cIw">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DRm-IU-yZO">
@@ -158,15 +158,15 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uET-IA-Omm" customClass="RoundedBlurEffectView" customModule="Insta_Challenge" customModuleProvider="target">
-                                            <rect key="frame" x="22" y="72" width="330" height="460"/>
+                                            <rect key="frame" x="13" y="72" width="348" height="460"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="n66-yo-dRa">
-                                                <rect key="frame" x="0.0" y="0.0" width="330" height="460"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="348" height="460"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HGy-eI-Ccv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="330" height="460"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="348" height="460"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="330" id="UcS-iY-mVB"/>
+                                                            <constraint firstAttribute="width" constant="348" id="UcS-iY-mVB"/>
                                                             <constraint firstAttribute="height" constant="460" id="YSG-mq-j1N"/>
                                                         </constraints>
                                                     </imageView>
@@ -177,7 +177,7 @@
                                                 </constraints>
                                             </view>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="330" id="5Ac-wX-d5u"/>
+                                                <constraint firstAttribute="width" constant="348" id="5Ac-wX-d5u"/>
                                                 <constraint firstAttribute="height" constant="460" id="vbE-VE-OJH"/>
                                             </constraints>
                                             <blurEffect style="light"/>
@@ -189,13 +189,13 @@
                                         </visualEffectView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="uET-IA-Omm" secondAttribute="trailing" constant="23" id="CM0-h7-v0g"/>
+                                        <constraint firstAttribute="trailing" secondItem="uET-IA-Omm" secondAttribute="trailing" constant="14" id="CM0-h7-v0g"/>
                                         <constraint firstAttribute="bottom" secondItem="uET-IA-Omm" secondAttribute="bottom" constant="71" id="LLH-hQ-bz4"/>
-                                        <constraint firstItem="uET-IA-Omm" firstAttribute="leading" secondItem="91Z-iG-bWT" secondAttribute="leading" constant="22" id="Lyf-Fa-OlN"/>
+                                        <constraint firstItem="uET-IA-Omm" firstAttribute="leading" secondItem="91Z-iG-bWT" secondAttribute="leading" constant="13" id="Lyf-Fa-OlN"/>
                                         <constraint firstItem="uET-IA-Omm" firstAttribute="top" secondItem="91Z-iG-bWT" secondAttribute="top" constant="72" id="aeb-tU-iWe"/>
                                     </constraints>
                                 </view>
-                                <blurEffect style="light"/>
+                                <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -270,6 +270,9 @@
             <point key="canvasLocation" x="-152" y="401"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Sky-telescope" width="4500" height="3682"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="dOy-Ae-MWX"/>
     </inferredMetricsTieBreakers>
