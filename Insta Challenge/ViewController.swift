@@ -10,20 +10,31 @@ import UIKit
 
 struct App {
     
-    private static let CLIENT_ID = "944761ef064d4004b6751adfd0bc6f25"
-    private static let CLIENT_SECRET = "27add98158184b4b8415b6778bb9a7ab"
+    private static let CLIENT_ID = "5bae4fcc540645d98f45563325d1ee27"
+    private static let CLIENT_SECRET = "af25db7edd0f4843ae4a36ec35592203"
     static let REDIRECT_URI = "https://localhost"
+    static let AUTH_URI_BASE_URL = "https://localhost/#access_token="
     
-    static let AUTH_REQUEST_URL = "https://api.instagram.com/oauth/authorize/?client_id=\(CLIENT_ID)&redirect_uri=\(REDIRECT_URI)&scope=public_content&response_type=token"
+    static let AUTH_REQUEST_URL
+        = "https://api.instagram.com/oauth/authorize/?client_id=\(App.CLIENT_ID)&redirect_uri=\(App.REDIRECT_URI)&scope=public_content&response_type=token"
     
-    static var AUTH_TOKEN_URL: NSURL!
+    static var AUTH_TOKEN_URL: String {
+        get {
+            return "https://api.instagram.com/v1/tags/selfie/media/recent?access_token=" + TOKEN
+        }
+    }
     
+    static var TOKEN: String! {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setObject(TOKEN, forKey: "auth-token")
+        }
+    }
 }
 
 class ViewController: UIViewController {
 
     var authenticated: Bool!
-    
+    var allPictures: Picture!
     @IBOutlet weak var webView: UIWebView!
     
     /*
@@ -38,9 +49,6 @@ class ViewController: UIViewController {
         
         //TODO: check authentication
         self.checkAuth()
-        
-        //TODO: set web view to instagram auth page
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,12 +73,17 @@ class ViewController: UIViewController {
         }
         
         if authenticated! {
-            note("User is authenticated. Disabling wenView.")
             self.webView.hidden = true
             self.webView = nil
+            App.TOKEN = NSUserDefaults.standardUserDefaults().objectForKey("auth-token") as! String
+            note("User is authenticated. Disabling wenView.")
+            self.allPictures = Picture.pictureInstance
+            self.allPictures.loadPictures()
+            
         }else{
             note("User is NOT authenticated. Presenting webView.")
             self.webView.loadRequest(NSURLRequest(URL: NSURL(string: App.AUTH_REQUEST_URL)!))
+            
         }
     }
     
@@ -89,6 +102,24 @@ extension ViewController: UIWebViewDelegate {
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         note("Request: \(request)")
         
+        if let url = request.URL {
+            if url.absoluteString.rangeOfString(App.AUTH_URI_BASE_URL) != nil {
+                note("SUCCESS AUTH TOKEN DISABLE TEST - PASSED!")
+                
+                //grab token
+                let tokenUrl = NSString(string: (request.URL?.absoluteString)!).substringFromIndex(32)
+                App.TOKEN = String(tokenUrl)
+                NSUserDefaults.standardUserDefaults().setObject(App.TOKEN, forKey: "auth-token")
+                //hide webView n disable
+                self.webView.hidden = true
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "auth")
+                self.authenticated = true
+                checkAuth() //Recheck authentication.
+            }else{
+                note("FAILED AUTH TOKEN TEST")
+            }
+        }
+        
         return true
     }
     
@@ -98,6 +129,14 @@ extension ViewController: UIWebViewDelegate {
     
     func webViewDidFinishLoad(webView: UIWebView) {
         note("webView: Ended")
+    }
+    
+    func getPicturesInBackground() {
+        let queue = NSOperationQueue()
+        let getPictureOperation = NSBlockOperation(block: {
+            
+        })
+        queue.addOperation(getPictureOperation)
     }
 }
 
