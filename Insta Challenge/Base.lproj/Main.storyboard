@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,15 +18,119 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgT-mw-2aA">
-                                <rect key="frame" x="0.0" y="81" width="375" height="273"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                            </webView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJw-ej-JQ6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="nK4-J9-ff6">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTW-lq-isv">
+                                            <rect key="frame" x="164" y="595" width="46" height="30"/>
+                                            <state key="normal" title="Load"/>
+                                            <connections>
+                                                <action selector="loadPictures:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Lk-c2-t5q"/>
+                                            </connections>
+                                        </button>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kMA-aT-ZGH" customClass="RoundedBlurEffectView" customModule="Insta_Challenge" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="109" width="375" height="450"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="p1o-ug-yvh">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgT-mw-2aA">
+                                                        <rect key="frame" x="8" y="8" width="359" height="434"/>
+                                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="359" id="CVV-Nx-nYH"/>
+                                                        </constraints>
+                                                    </webView>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rg6-5A-qpc">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <collectionViewLayout key="collectionViewLayout" id="Rrf-WA-WrU" customClass="InstaLayout" customModule="Insta_Challenge" customModuleProvider="target"/>
+                                                        <cells>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="pictureCell" id="eMo-AK-Uo6" customClass="PictureCollectionViewCell" customModule="Insta_Challenge" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YEH-OU-qyk">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="120" id="gqC-lX-Ejp"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J0P-KY-MuD">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="MiF-4e-JdT">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            </view>
+                                                                            <blurEffect style="extraLight"/>
+                                                                        </visualEffectView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </view>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="bottomMargin" secondItem="YEH-OU-qyk" secondAttribute="bottom" constant="-8" id="8mn-vB-6QO"/>
+                                                                    <constraint firstItem="YEH-OU-qyk" firstAttribute="top" secondItem="eMo-AK-Uo6" secondAttribute="topMargin" constant="-8" id="CSX-ys-gOk"/>
+                                                                    <constraint firstItem="YEH-OU-qyk" firstAttribute="leading" secondItem="eMo-AK-Uo6" secondAttribute="leadingMargin" constant="-8" id="PXd-ek-hfQ"/>
+                                                                    <constraint firstAttribute="trailingMargin" secondItem="YEH-OU-qyk" secondAttribute="trailing" constant="-8" id="tka-dq-FVg"/>
+                                                                </constraints>
+                                                                <size key="customSize" width="120" height="120"/>
+                                                                <connections>
+                                                                    <outlet property="blurEffectView" destination="J0P-KY-MuD" id="d7r-oF-QWC"/>
+                                                                    <outlet property="imageHeightConstraint" destination="gqC-lX-Ejp" id="sQ1-IW-6zd"/>
+                                                                    <outlet property="imageView" destination="YEH-OU-qyk" id="lPf-XA-LFE"/>
+                                                                </connections>
+                                                            </collectionViewCell>
+                                                        </cells>
+                                                    </collectionView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="dgT-mw-2aA" secondAttribute="trailing" constant="8" id="8bn-yv-hst"/>
+                                                    <constraint firstAttribute="bottom" secondItem="dgT-mw-2aA" secondAttribute="bottom" constant="8" id="HZq-cq-QEM"/>
+                                                    <constraint firstItem="dgT-mw-2aA" firstAttribute="leading" secondItem="p1o-ug-yvh" secondAttribute="leading" constant="8" id="Vmv-Qv-cW0"/>
+                                                    <constraint firstItem="dgT-mw-2aA" firstAttribute="top" secondItem="p1o-ug-yvh" secondAttribute="top" constant="8" id="cgk-Kv-eX0"/>
+                                                </constraints>
+                                            </view>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="375" id="67c-Xx-ngl"/>
+                                                <constraint firstAttribute="height" constant="450" id="Sjz-jv-rhz"/>
+                                            </constraints>
+                                            <blurEffect style="dark"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </visualEffectView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kMA-aT-ZGH" firstAttribute="centerX" secondItem="nK4-J9-ff6" secondAttribute="centerX" id="rjj-TD-5Ri"/>
+                                        <constraint firstItem="kMA-aT-ZGH" firstAttribute="centerY" secondItem="nK4-J9-ff6" secondAttribute="centerY" id="wDi-pe-kYz"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="667" id="Vo0-wQ-0ys"/>
+                                    <constraint firstAttribute="width" constant="375" id="lQi-GW-DvH"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RJw-ej-JQ6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Slg-Z5-kh9"/>
+                            <constraint firstItem="RJw-ej-JQ6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yqL-RQ-tQT"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="backgroundBlurEffectView" destination="RJw-ej-JQ6" id="Uhx-fh-vjA"/>
+                        <outlet property="photoBlurEffectView" destination="kMA-aT-ZGH" id="ZBR-Bx-Ce6"/>
+                        <outlet property="pictureCollectionView" destination="rg6-5A-qpc" id="aNc-cb-pw0"/>
                         <outlet property="webView" destination="dgT-mw-2aA" id="aNl-wi-que"/>
                     </connections>
                 </viewController>

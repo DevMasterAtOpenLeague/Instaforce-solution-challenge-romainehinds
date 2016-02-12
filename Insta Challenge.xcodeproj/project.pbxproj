@@ -20,6 +20,7 @@
 		EFEC0C1B1C6D42A700A58CDA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFEC0C1A1C6D42A700A58CDA /* Alamofire.framework */; };
 		EFEC0C1D1C6D599F00A58CDA /* PictureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC0C1C1C6D599F00A58CDA /* PictureCollectionViewCell.swift */; };
 		EFEC0C1F1C6D59AD00A58CDA /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC0C1E1C6D59AD00A58CDA /* Picture.swift */; };
+		EFEC0C211C6DB89100A58CDA /* InstaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC0C201C6DB89100A58CDA /* InstaLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		EFEC0C1A1C6D42A700A58CDA /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
 		EFEC0C1C1C6D599F00A58CDA /* PictureCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewCell.swift; sourceTree = "<group>"; };
 		EFEC0C1E1C6D59AD00A58CDA /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		EFEC0C201C6DB89100A58CDA /* InstaLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstaLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				EFEC0BF41C6D3F9D00A58CDA /* Info.plist */,
 				EFEC0C1C1C6D599F00A58CDA /* PictureCollectionViewCell.swift */,
 				EFEC0C1E1C6D59AD00A58CDA /* Picture.swift */,
+				EFEC0C201C6DB89100A58CDA /* InstaLayout.swift */,
 			);
 			path = "Insta Challenge";
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 			files = (
 				EFEC0C1F1C6D59AD00A58CDA /* Picture.swift in Sources */,
 				EFEC0C1D1C6D599F00A58CDA /* PictureCollectionViewCell.swift in Sources */,
+				EFEC0C211C6DB89100A58CDA /* InstaLayout.swift in Sources */,
 				EFEC0BEB1C6D3F9D00A58CDA /* ViewController.swift in Sources */,
 				EFEC0BE91C6D3F9D00A58CDA /* AppDelegate.swift in Sources */,
 			);
