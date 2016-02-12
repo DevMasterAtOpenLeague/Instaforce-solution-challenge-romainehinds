@@ -10,6 +10,12 @@ import Foundation
 import SwiftyJSON
 import Alamofire
 
+struct ImagePreviewDetail {
+    var title: String
+    let preferredHeight: Double
+    let image: UIImage
+}
+
 class Picture {
     
     static var pictureInstance = Picture()
@@ -17,13 +23,35 @@ class Picture {
     var allPictures: [PictureData]!
     var picturesJSON: [JSON]!
     var loaded: Bool = false
+    var largePicturesData: [PictureData]!
     
-    var allImages: [UIImage] = [UIImage]()
+    var allImages: [UIImage] = [UIImage]() {
+        didSet {
+            print("New image set.")
+        }
+    }
+    
+    
+    
+    var previewDetails: [ImagePreviewDetail] {
+        didSet {
+            print("New preview details set.")
+        }
+    }
+    
+    var previewLargeDetails: [ImagePreviewDetail] {
+        didSet {
+            print("New Large preview details set.")
+        }
+    }
     
     var count: Int = 0
+    var selfieCount = 0
     private init(){
         self.picturesJSON = [JSON]()
-        //self.loadPictures()
+        self.largePicturesData = [PictureData]()
+        self.previewDetails = [ImagePreviewDetail]()
+        self.previewLargeDetails = [ImagePreviewDetail]()
     }
     
     func loadPictures() {
@@ -51,8 +79,12 @@ class Picture {
                         count++
                         
                         let data = self.extractPictureJSON(json, res: res)
-                        let pictureData = PictureData(height: data.height, width: data.width, url: data.url, resolution: data.res)
+                        let pictureData = PictureData(height: data.height, width: data.width, url: data.url, resolution: data.res, name: "selfie\(self.selfieCount)")
                         
+                        let largeData = self.extractPictureJSON(json, res: .standard)
+                        let largePictureData = PictureData(height: largeData.height, width: largeData.width, url: largeData.url, resolution: largeData.res, name: "selfie\(self.selfieCount)")
+                        self.largePicturesData.append(largePictureData)
+                        self.selfieCount++
                         if self.allPictures == nil {
                             self.allPictures = [PictureData]()
                         }
@@ -64,27 +96,16 @@ class Picture {
         }
     }
     
-//    func getPictureData(res: Resolution) -> PictureData{
-//        if self.picturesJSON == nil {
-//            self.picturesJSON = [JSON]()
-//        }
-//        
-//        if let data = self.picturesJSON.last {
-//            let jsonData = extractPictureJSON(data, res: res)
-//            
-//            let pictureData = PictureData(height: jsonData.height, width: jsonData.width, url: jsonData.url, resolution: jsonData.res)
-//            
-//            if self.allPictures == nil {
-//                self.allPictures = [PictureData]()
-//            }
-//            
-//            self.allPictures.append(pictureData)
-//
-//        }
-//        
-//        return self.allPictures.last!
-//    }
-//    
+    func addImagePreviewDetails(title: String, height: Double, image: UIImage) {
+        let details = ImagePreviewDetail(title: title, preferredHeight: height, image: image)
+        self.previewDetails.append(details)
+    }
+    
+    func addLargeImagePreviewDetails(title: String, height: Double, image: UIImage) {
+        let details = ImagePreviewDetail(title: title, preferredHeight: height, image: image)
+        self.previewLargeDetails.append(details)
+    }
+
     func extractPictureJSON(json: JSON, res: Resolution) -> (height: CGFloat, width: CGFloat, url: String, res: Resolution) {
         
         var height: CGFloat!
@@ -121,9 +142,11 @@ struct PictureData {
     var width: CGFloat?
     var url: String?
     var resolution: Resolution?
+    var name: String?
     
 }
 
+var currentIndexPath: NSIndexPath?
 
 
 

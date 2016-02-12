@@ -16,13 +16,14 @@ class PictureCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     var res: Resolution?
+    var indexPath: NSIndexPath?
     
     var pictureJSON: SwiftyJSON.JSON? {
         didSet {
             if let res = self.res {
                 if let json = self.pictureJSON {
                     let jsonData = self.extractPictureJSON(json, res: res)
-                    self.pictureData = PictureData(height: jsonData.height, width: jsonData.width, url: jsonData.url, resolution: jsonData.res)
+                    self.pictureData = PictureData(height: jsonData.height, width: jsonData.width, url: jsonData.url, resolution: jsonData.res, name: "selfie")
                 }
             }
         }
@@ -35,7 +36,6 @@ class PictureCollectionViewCell: UICollectionViewCell {
     }
     var queue: NSOperationQueue!
     
-    //TODO: Background operation used to load pictures into the Collection View.
     func getPicturesInBackground() {
         queue = NSOperationQueue()
         let getPictureOperation = NSBlockOperation(block: {
@@ -44,11 +44,31 @@ class PictureCollectionViewCell: UICollectionViewCell {
                 print("Error loading image: \(error)")
             }, success: {
                 (image) in
-                NSOperationQueue.mainQueue().addOperationWithBlock({
+                NSOperationQueue.mainQueue().addOperationWithBlock {
                     self.imageView.image = image
                     self.blurEffectView.hidden = true
-                    //Picture.pictureInstance.allImages.append(self.imageView.image!)
-                })
+                    Picture.pictureInstance.allImages.append(self.imageView.image!)
+                    Picture.pictureInstance.addImagePreviewDetails("#selfie", height: Double(self.pictureData.height!), image: self.imageView.image!)
+                }
+            })
+        })
+
+        queue.addOperation(getPictureOperation)
+        
+    }
+    
+    func getLargePicturesInBackground(pictureData: PictureData) {
+        print("Getting large picture in background.")
+        queue = NSOperationQueue()
+        let getPictureOperation = NSBlockOperation(block: {
+
+            self.imageView.hnk_setImageFromURL(NSURL(string: pictureData.url!)!, placeholder: nil, format: nil, failure: {
+                (error) in
+                print("Error loading image: \(error)")
+                }, success: {
+                    (image) in
+                    print("Adding LargeImageDetails")
+                    Picture.pictureInstance.addLargeImagePreviewDetails("#selfie", height: Double(self.pictureData.height!), image: image)
             })
         })
         queue.addOperation(getPictureOperation)

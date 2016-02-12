@@ -10,37 +10,13 @@ import UIKit
 import AVFoundation
 import SwiftyJSON
 
-struct App {
-    
-    private static let CLIENT_ID = "5bae4fcc540645d98f45563325d1ee27"
-    private static let CLIENT_SECRET = "af25db7edd0f4843ae4a36ec35592203"
-    static let REDIRECT_URI = "https://localhost"
-    static let AUTH_URI_BASE_URL = "https://localhost/#access_token="
-    
-    static let AUTH_REQUEST_URL
-        = "https://api.instagram.com/oauth/authorize/?client_id=\(App.CLIENT_ID)&redirect_uri=\(App.REDIRECT_URI)&scope=public_content&response_type=token"
-    
-    static var AUTH_TOKEN_URL: String {
-        get {
-            return "https://api.instagram.com/v1/tags/selfie/media/recent?access_token=" + TOKEN
-        }
-    }
-    
-    static var TOKEN: String! {
-        didSet {
-            NSUserDefaults.standardUserDefaults().setObject(TOKEN, forKey: "auth-token")
-        }
-    }
-}
-
 class ViewController: UIViewController {
 
     //properties
     var authenticated: Bool!
     var pictures: Picture!
     var patternCount: Int = 1
-    
-    
+    var downloader: PictureDownloader!
     
     //MARK:- Outlets
     @IBOutlet weak var webView: UIWebView!
@@ -48,28 +24,56 @@ class ViewController: UIViewController {
     @IBOutlet weak var photoBlurEffectView: RoundedBlurEffectView!
     @IBOutlet weak var pictureCollectionView: UICollectionView!
     
+    /// An alert controller used to notify the user if 3D touch is not available.
+    var alertController: UIAlertController?
     
-    /*
-    Using the Instagram API, create an iPhone app that displays photos tagged with hashtag #selfie and arranges them using the pattern: big, small, small (repeating). Then implement one of the following features: Tap to enlarge, Drag and drop reordering, or Infinite scrolling. Scrolling should be smooth so performance is essential. Complete as much as you can within one day. Be creative and have fun. Good luck!
-    */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         self.webView.delegate = self
-        
         
         if let layout = self.pictureCollectionView.collectionViewLayout as? InstaLayout {
             layout.delegate = self
         }
-        
+        self.pictureCollectionView.delegate = self
         self.checkAuth()
         
-        //TODO: check authentication
-        //self.checkAuth() //Moved to viewWillAppear
-        //self.pictureCollectionView.reloadData()
+        // Check for force touch feature, and add force touch/previewing capability.
+        if traitCollection.forceTouchCapability == .Available {
+            registerForPreviewingWithDelegate(self, sourceView: view)
+        }
+        else {
+            // Create an alert to display to the user.
+            alertController = UIAlertController(title: "3D Touch Not Available", message: "Unsupported device.", preferredStyle: .Alert)
+        }
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
+        // Present the alert if necessary.
+        if let alertController = alertController {
+            alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(alertController, animated: true, completion: nil)
+            
+            // Clear the `alertController` to ensure it's not presented multiple times.
+            self.alertController = nil
+        }
+    }
+    
+    // MARK: UIStoryboardSegue Handling
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showDetail" {
+            let indexPath = pictureCollectionView.indexPathsForSelectedItems()![0]
+            let previewDetail = pictures.previewDetails[indexPath.item]
+            
+            let detailViewController = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+            
+            // Pass the `title` to the `detailViewController`.
+            detailViewController.detailItemTitle = previewDetail.title
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,9 +83,9 @@ class ViewController: UIViewController {
 
     
     @IBAction func loadPictures(sender: AnyObject) {
-        print("setting datasoure")
         self.pictureCollectionView.dataSource = self
-        print("Pictures: \(self.pictures)")
+        downloader = PictureDownloader(data: self.pictures.largePicturesData)
+        
     }
     
     
@@ -170,13 +174,7 @@ extension ViewController: InstaLayoutDelegate {
     func collectionView(collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat {
     
         let image = self.pictures.allPictures[indexPath.item]
-        print("height current image: \(image) ")
         return image.height!
-//        let size = CGSize(width: image.width!, height: image.height!)
-//        
-//        let  boundingRect =  CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
-//        let rect  = AVMakeRectWithAspectRatioInsideRect(size, boundingRect)
-//        return rect.size.height
         
     }
     
@@ -194,6 +192,14 @@ extension ViewController: InstaLayoutDelegate {
         }
         
         
+    }
+}
+
+//MARK:- UICollectionViewDelegate
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print("CollectionViewDelegate detected cell selection at indexPath: \(indexPath)")
+        currentIndexPath = indexPath
     }
 }
 
@@ -217,7 +223,7 @@ extension ViewController: UICollectionViewDataSource {
             self.patternCount = 1
             cell.res = Resolution.thumbnail
         }
-        
+        cell.indexPath = indexPath
         self.patternCount++
         cell.pictureJSON = self.pictures.picturesJSON[indexPath.row]
         
@@ -229,3 +235,43 @@ extension ViewController: UICollectionViewDataSource {
     
 }
 
+// MARK: UIViewControllerPreviewingDelegate
+extension ViewController: UIViewControllerPreviewingDelegate {
+    
+    /// Create a previewing view controller to be shown at "Peek".
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        // Obtain the index path and the cell that was pressed.
+        guard let indexPath = pictureCollectionView.indexPathForItemAtPoint(location) else { return nil }
+        guard let cell = pictureCollectionView.cellForItemAtIndexPath(indexPath) else { return nil }
+        
+        // Create a detail view controller and set its properties.
+        guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as? DetailViewController else { return nil }
+       
+        let cellName = self.pictures.allPictures[indexPath.row].name
+        var previewDetail: ImagePreviewDetail!
+        for pics in downloader.imageDetails {
+            if pics.title == cellName {
+                previewDetail = pics
+            }
+        }
+        //cell.imageView.image = previewDetail.image
+        detailViewController.detailItemTitle = previewDetail.title
+        detailViewController.image = previewDetail.image
+        /*
+        Set the height of the preview by setting the preferred content size of the detail view controller.
+        Width should be zero, because it's not used in portrait.
+        */
+        detailViewController.preferredContentSize = CGSize(width: 0.0, height: previewDetail.preferredHeight)
+        
+        // Set the source rect to the cell frame, so surrounding elements are blurred.
+        previewingContext.sourceRect = cell.frame
+        
+        return detailViewController
+    }
+    
+    /// Present the view controller for the "Pop" action.
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        // Reuse the "Peek" view controller for presentation.
+        showViewController(viewControllerToCommit, sender: self)
+    }
+}

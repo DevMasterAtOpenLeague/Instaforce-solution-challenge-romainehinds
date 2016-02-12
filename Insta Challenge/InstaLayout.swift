@@ -63,8 +63,6 @@ class InstaLayout: UICollectionViewLayout {
     //Content height and size
     private var contentHeight:CGFloat  = 0.0
     private var contentWidth: CGFloat {
-//        let insets = collectionView!.contentInset
-//        return CGRectGetWidth(collectionView!.bounds) - (insets.left + insets.right)
         return delegate.photoSize().width
     }
     

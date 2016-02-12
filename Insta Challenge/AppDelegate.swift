@@ -9,13 +9,15 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
+        splitViewController.delegate = self
         return true
     }
 
@@ -41,6 +43,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    // MARK: Split View Delegate
+    
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+        
+        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
+        
+        // Return true if the `detailItemTitle` has not been set, collapsing the secondary controller.
+        return topAsDetailController.detailItemTitle == nil
+    }
+}
 
+struct App {
+    
+    private static let CLIENT_ID = "5bae4fcc540645d98f45563325d1ee27"
+    private static let CLIENT_SECRET = "af25db7edd0f4843ae4a36ec35592203"
+    static let REDIRECT_URI = "https://localhost"
+    static let AUTH_URI_BASE_URL = "https://localhost/#access_token="
+    
+    static let AUTH_REQUEST_URL
+    = "https://api.instagram.com/oauth/authorize/?client_id=\(App.CLIENT_ID)&redirect_uri=\(App.REDIRECT_URI)&scope=public_content&response_type=token"
+    
+    static var AUTH_TOKEN_URL: String {
+        get {
+            return "https://api.instagram.com/v1/tags/selfie/media/recent?access_token=" + TOKEN
+        }
+    }
+    
+    static var TOKEN: String! {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setObject(TOKEN, forKey: "auth-token")
+        }
+    }
 }
 

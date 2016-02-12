@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6CD6BDFC813F446A5BE3E533 /* Pods_Insta_Challenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6FF739BEF5BD024D8E5552E /* Pods_Insta_Challenge.framework */; };
+		EF9956561C6E446700B05CDA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9956551C6E446700B05CDA /* DetailViewController.swift */; };
+		EF9956581C6E72FE00B05CDA /* PictureDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9956571C6E72FE00B05CDA /* PictureDownloader.swift */; };
 		EFEC0BE91C6D3F9D00A58CDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC0BE81C6D3F9D00A58CDA /* AppDelegate.swift */; };
 		EFEC0BEB1C6D3F9D00A58CDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC0BEA1C6D3F9D00A58CDA /* ViewController.swift */; };
 		EFEC0BEE1C6D3F9D00A58CDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFEC0BEC1C6D3F9D00A58CDA /* Main.storyboard */; };
@@ -44,6 +46,9 @@
 		618B88C505037CCBA407AC47 /* Pods-Insta Challenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insta Challenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-Insta Challenge/Pods-Insta Challenge.release.xcconfig"; sourceTree = "<group>"; };
 		94B080D039F6A503D57958EB /* Pods-Insta Challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insta Challenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Insta Challenge/Pods-Insta Challenge.debug.xcconfig"; sourceTree = "<group>"; };
 		E6FF739BEF5BD024D8E5552E /* Pods_Insta_Challenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Insta_Challenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF9956531C6E3E5600B05CDA /* RAReorderableLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RAReorderableLayout.framework; path = "Pods/../build/Debug-iphoneos/RAReorderableLayout.framework"; sourceTree = "<group>"; };
+		EF9956551C6E446700B05CDA /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		EF9956571C6E72FE00B05CDA /* PictureDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureDownloader.swift; sourceTree = "<group>"; };
 		EFEC0BE51C6D3F9D00A58CDA /* Insta Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Insta Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFEC0BE81C6D3F9D00A58CDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFEC0BEA1C6D3F9D00A58CDA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +102,7 @@
 		10E35FF313D0F0B9A806CD9C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF9956531C6E3E5600B05CDA /* RAReorderableLayout.framework */,
 				EFEC0C1A1C6D42A700A58CDA /* Alamofire.framework */,
 				EFEC0C181C6D42A300A58CDA /* SwiftyJSON.framework */,
 				EFEC0C161C6D429F00A58CDA /* Haneke.framework */,
@@ -148,6 +154,8 @@
 				EFEC0C1C1C6D599F00A58CDA /* PictureCollectionViewCell.swift */,
 				EFEC0C1E1C6D59AD00A58CDA /* Picture.swift */,
 				EFEC0C201C6DB89100A58CDA /* InstaLayout.swift */,
+				EF9956551C6E446700B05CDA /* DetailViewController.swift */,
+				EF9956571C6E72FE00B05CDA /* PictureDownloader.swift */,
 			);
 			path = "Insta Challenge";
 			sourceTree = "<group>";
@@ -241,6 +249,7 @@
 				TargetAttributes = {
 					EFEC0BE41C6D3F9D00A58CDA = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 2VAG7EPZ93;
 					};
 					EFEC0BF81C6D3F9D00A58CDA = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -353,8 +362,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFEC0C1F1C6D59AD00A58CDA /* Picture.swift in Sources */,
+				EF9956581C6E72FE00B05CDA /* PictureDownloader.swift in Sources */,
 				EFEC0C1D1C6D599F00A58CDA /* PictureCollectionViewCell.swift in Sources */,
 				EFEC0C211C6DB89100A58CDA /* InstaLayout.swift in Sources */,
+				EF9956561C6E446700B05CDA /* DetailViewController.swift in Sources */,
 				EFEC0BEB1C6D3F9D00A58CDA /* ViewController.swift in Sources */,
 				EFEC0BE91C6D3F9D00A58CDA /* AppDelegate.swift in Sources */,
 			);

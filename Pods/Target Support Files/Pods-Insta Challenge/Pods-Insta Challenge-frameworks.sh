@@ -86,10 +86,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Insta Challenge/Alamofire.framework"
   install_framework "Pods-Insta Challenge/Haneke.framework"
+  install_framework "Pods-Insta Challenge/RAReorderableLayout.framework"
   install_framework "Pods-Insta Challenge/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Insta Challenge/Alamofire.framework"
   install_framework "Pods-Insta Challenge/Haneke.framework"
+  install_framework "Pods-Insta Challenge/RAReorderableLayout.framework"
   install_framework "Pods-Insta Challenge/SwiftyJSON.framework"
 fi
