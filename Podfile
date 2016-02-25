@@ -7,7 +7,7 @@ target 'Insta Challenge' do
 pod 'Alamofire'
 pod 'SwiftyJSON'
 pod 'HanekeSwift'
-pod 'RAReorderableLayout'
+
 
 end
 

@@ -46,7 +46,6 @@
 		618B88C505037CCBA407AC47 /* Pods-Insta Challenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insta Challenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-Insta Challenge/Pods-Insta Challenge.release.xcconfig"; sourceTree = "<group>"; };
 		94B080D039F6A503D57958EB /* Pods-Insta Challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insta Challenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Insta Challenge/Pods-Insta Challenge.debug.xcconfig"; sourceTree = "<group>"; };
 		E6FF739BEF5BD024D8E5552E /* Pods_Insta_Challenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Insta_Challenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF9956531C6E3E5600B05CDA /* RAReorderableLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RAReorderableLayout.framework; path = "Pods/../build/Debug-iphoneos/RAReorderableLayout.framework"; sourceTree = "<group>"; };
 		EF9956551C6E446700B05CDA /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		EF9956571C6E72FE00B05CDA /* PictureDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureDownloader.swift; sourceTree = "<group>"; };
 		EFEC0BE51C6D3F9D00A58CDA /* Insta Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Insta Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +101,6 @@
 		10E35FF313D0F0B9A806CD9C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EF9956531C6E3E5600B05CDA /* RAReorderableLayout.framework */,
 				EFEC0C1A1C6D42A700A58CDA /* Alamofire.framework */,
 				EFEC0C181C6D42A300A58CDA /* SwiftyJSON.framework */,
 				EFEC0C161C6D429F00A58CDA /* Haneke.framework */,
